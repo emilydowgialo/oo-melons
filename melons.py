@@ -14,8 +14,22 @@ class AbstractMelonOrder(object):
         """Calculate price."""
 
         base_price = 5
+
+        if self.species == "Christmas melon":
+            base_price = base_price * 1.5
+
         total = (1 + self.tax) * self.qty * base_price
+
+        if self.order_type == "international" and self.qty < 10:
+            total = total + 3
+
         return total
+
+        #if christmas_melon:
+        #   it will 1.5 times as much
+
+        #if international_order and less than 10 melons:
+        #    a flat fee of $3 added to total cost
 
     def mark_shipped(self):
         """Set shipped to true."""
@@ -49,3 +63,13 @@ class InternationalMelonOrder(AbstractMelonOrder):
         """Return the country code."""
 
         return self.country_code
+
+class GovernmentMelonOrder(AbstractMelonOrder):
+    """This is a government melon"""
+
+    def __init__(self, species, qty):
+        self.tax = 0
+        self.passed_inspection = False
+
+    def mark_inspection(self, passed):
+        self.passed_inspection = True 
