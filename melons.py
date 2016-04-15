@@ -1,3 +1,4 @@
+from random import choice
 """This file should have our order classes in it."""
 
 class AbstractMelonOrder(object):
@@ -10,15 +11,21 @@ class AbstractMelonOrder(object):
         self.qty = qty
         self.shipped = False
 
+    #get_base_price method:
+    #this will choose random integer between 5 and 9
+    #use this random integer in get_total
+    def get_base_price(self):
+        
+        self.base_price = choice(range[5:10])
+        return self.base_price
+
     def get_total(self):
         """Calculate price."""
 
-        base_price = 5
-
         if self.species == "Christmas melon":
-            base_price = base_price * 1.5
+            int(self.base_price) = self.base_price * 1.5
 
-        total = (1 + self.tax) * self.qty * base_price
+        total = (1 + self.tax) * self.qty * self.base_price
 
         if self.order_type == "international" and self.qty < 10:
             total = total + 3
